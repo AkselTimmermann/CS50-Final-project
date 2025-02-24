@@ -1,0 +1,86 @@
+.form-control {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 7px;
+    margin-bottom: 15px;
+    border-radius: 7px;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.form-container button {
+    background-color: #7ec8e3;
+    width: 100%;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.form-row {
+    display: flex; /* makes them horizontal */
+    gap: 20px; /* adds a gap */
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-weight: bold;
+
+}
+
+.submit-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.submit-container .btn {
+    width: auto;
+    padding: 10px 20px;
+}
+
+.workout-container .workout-field {
+    display: block;
+    flex direction: column;
+    align-items: flex-start;
+}
+
+.workout-container .form-group {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.workout-container .form-group label {
+    width: 130px;
+    font-weight: bold;
+}
+
+.workout-container select.form-control {
+    width: 100%;
+    max-width: 175px;
+    padding: 8px;
+}
+
+.workout-container .form-control[type="date"],
+.workout-container .form-control[type="time"] {
+    width: 100%;
+    max-width: 155px;
+    padding: 8px;
+}
+
+body {
+    background-color: #7ec8e3;
+}

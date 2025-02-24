@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Set Your Monthly Goal</h2>
+    <form method="POST" action="">
+        {{ goal_form.hidden_tag() }}
+
+        <div class="form-row">
+            <div class="form-group">
+                {{ goal_form.yoga_session.label }}<br>
+                {{ goal_form.yoga_session(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ goal_form.running_distance.label }}<br>
+                {{ goal_form.running_distance(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ goal_form.weightlifting_session.label }}<br>
+                {{ goal_form.weightlifting_session(class="form-control") }}
+            </div>
+        </div>
+
+        <div class="submit-container">
+        <button type="submit" class="btn btn-primary">{{ goal_form.submit.label }}</button>
+        </div>
+    </form>
+</div>
+<div class="form-container workout-container">
+    <h2>Log Your Workout</h2>
+    <form method="POST" action="">
+        {{ workout_form.hidden_tag() }}
+
+        <div class="workout-fields">
+            <div class="form-group">
+                {{ workout_form.date.label }}
+                {{ workout_form.date(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ workout_form.activity_type.label }}
+                {{ workout_form.activity_type(class="form-control", id="activity-type") }}
+            </div>
+            <div class="form-group">
+                {{ workout_form.duration.label }}
+                {{ workout_form.duration(class="form-control") }}
+            </div>
+            <div class="form-group" id="distance-field" style="display: none;">
+                {{ workout_form.distance.label }}
+                {{ workout_form.distance(class="form-control") }}
+            </div>
+            <div class="form-group" id="calories-field" style="display: none;">
+                {{ workout_form.calories.label }}
+                {{ workout_form.calories(class="form-control") }}
+            </div>
+            <div class="submit-container">
+                <button type="submit" class="btn btn-primary">{{ workout_form.submit.label }}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() { // DOMContentLoaded makes sure it only runs after DOM is loaded
+        const activityType = document.getElementById('activity-type');
+        const distanceField = document.getElementById('distance-field');
+        const caloriesField = document.getElementById('calories-field');
+
+        // function to show or hide fields depending on the chosen activity
+        function toggleFields() {
+            if (activityType.value === 'Running') {
+                distanceField.style.display = 'flex'; // show field
+                caloriesField.style.display = 'flex'; // show field
+            } else {
+                distanceField.style.display = 'none'; // hide field
+                caloriesField.style.display = 'none'; // hide field
+            }
+        }
+
+        // initial check on page load
+        toggleFields();
+
+        //  add eventlistener to toggle fields whenever the activity type changes
+        activityType.addEventListener('change', toggleFields);
+    });
+    </script>
+
+<div class="form-container">
+    <h2>Workout Summary</h2>
+
+    <!--Monthly summary-->
+    <h3>Monthly Activity Summary</h3>
+    <div class="form-group">
+        {% for activity, summary in monthly_activity_summary.items() %}
+        <div class="activity">
+            <h4>{{ activity }}</h4>
+            <p>Number of Workouts: {{ summary.count }}</p>
+            <p>Total Duration (hours): {{ summary.duration_hours | round(2) }}</p>
+            {% if activity == "Running" %}
+                <p>Total Distance (km): {{ summary.running_distance | round(2) }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!--All time summary-->
+    <h3>All-Time Activity Summary</h3>
+    <div class="form-group">
+        {% for activity, summary in total_activity_summary.items() %}
+        <div class="activity">
+            <h4>{{ activity }}</h4>
+            <p>Number of Workouts: {{ summary.count }}</p>
+            <p>Total Duration (hours): {{ summary.duration_hours | round(2) }}</p>
+            {% if activity == "Running" %}
+                <p>Total Distance (km): {{ summary.running_distance | round(2) }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
